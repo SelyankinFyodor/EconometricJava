@@ -5,8 +5,7 @@ import java.util.Random;
 public class NormalWithEjection {
     private final double mean;
     private final double var;
-    private final long maxEjectInterval;
-    private long ejectInterval;
+    private final long ejectInterval;
     private long currentStep;
     private final double maxEject;
     private final Random random;
@@ -16,7 +15,6 @@ public class NormalWithEjection {
         this.var = var;
         this.maxEject = maxEject;
         this.random = new Random();
-        this.maxEjectInterval = maxEjectInterval;
         this.ejectInterval = maxEjectInterval != 0 ? random.nextInt() % maxEjectInterval : 0;
         this.currentStep = 0;
     }
@@ -26,7 +24,7 @@ public class NormalWithEjection {
     }
 
     private double calcInject() {
-        return currentStep == ejectInterval ? random.nextGaussian() * maxEject : 0;
+        return currentStep != 0 && currentStep++ % ejectInterval == 0 ? random.nextGaussian() * maxEject : 0;
     }
 
 }
