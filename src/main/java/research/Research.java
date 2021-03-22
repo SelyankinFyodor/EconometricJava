@@ -1,8 +1,9 @@
 package main.java.research;
 
 import main.java.model.PolynomialRegression;
+import main.java.writer.StatWriter;
 import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
-import writer.ResultWriter;
+import main.java.writer.ResultWriter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,14 +11,17 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class Research {
-    public static void run(String inFileName, String outFileName) {
+    public static void run(String inFileName, String outFileName, String statisticFileName) {
+        final int maxDegree = 3;
+        int[] statistic = new int[maxDegree + 1];
+        double a = 0.05;
         final String SPACE = " ";
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inFileName))) {
-            long N = Long.decode(bufferedReader.readLine());
-            int chunkSize = 200;
+            int N = Integer.decode(bufferedReader.readLine());
+            int chunkSize = 50;
 
-            for (int chunk = 0, chunks = (int) (N / chunkSize); chunk < chunks; chunk++) {
+            for (int chunk = 0, chunks = N / chunkSize; chunk < chunks; chunk++) {
                 double[] T = new double[chunkSize];
                 double[] X = new double[chunkSize];
 
@@ -28,7 +32,7 @@ public class Research {
                 }
                 ResultWriter.write("interval: " + T[0] + " ," + T[chunkSize - 1], outFileName, chunk != 0);
                 PolynomialRegression polyRegr = new PolynomialRegression();
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i <= maxDegree; i++) {
                     polyRegr.fit(T, X, i);
 
                     double[] diff = new double[chunkSize];
@@ -38,12 +42,15 @@ public class Research {
                     }
                     double[] firstPart = Arrays.copyOfRange(diff, 0, chunkSize / 2);
                     double[] secondPart = Arrays.copyOfRange(diff, chunkSize / 2, chunkSize);
-                    MannWhitneyUTest MWTest = new MannWhitneyUTest();
-                    double pValue = MWTest.mannWhitneyUTest(firstPart, secondPart);
+                    double pValue = new MannWhitneyUTest().mannWhitneyUTest(firstPart, secondPart);
+                    if (pValue > a) {
+                        statistic[i] += 1;
+                    }
                     String resultLine = ResultWriter.prepareResult(polyRegr.getBetas(), polyRegr.getSigma(), pValue);
                     ResultWriter.write(resultLine, outFileName, true);
                 }
             }
+            StatWriter.write(N, statistic, statisticFileName, false);
         } catch (IOException e) {
             e.printStackTrace();
         }

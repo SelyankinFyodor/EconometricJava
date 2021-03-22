@@ -1,7 +1,7 @@
 package main.java.main;
 
 import main.java.generator.*;
-import writer.GenerationWriter;
+import main.java.writer.GenerationWriter;
 
 public class DataGenerator {
     public static void main(String[] args) {
@@ -13,16 +13,16 @@ public class DataGenerator {
         final String[] filenames = {"Zero", "First", "Second", "Third"};
         final String ext = ".txt";
 
-        double timeStart = 0.0;
-        final double timeStep = 0.01;
+        double timeStart = 0;
+        final double timeStep = 0.001;
 
-        final long chunkSize = 200;
-        final long nunOfChunk = 100;
+        final long chunkSize = 50;
+        final long nunOfChunk = 200000;
 
         double[] T = new double[(int) chunkSize];
         double[] X = new double[(int) chunkSize];
 
-        NormalWithEjection normalWithEjection = new NormalWithEjection(0, 0.01, 0, 0);
+        NormalWithEjection normalWithEjection = new NormalWithEjection(0, 1, 3, 25);
         for (int deg = 0; deg <= maxPolyDeg; deg++) {
             int finalDeg = deg;
 
@@ -31,7 +31,6 @@ public class DataGenerator {
                     (t) -> normalWithEjection.nextGaussian()
             );
 
-            timeStart = 0.0;
             for (int chunk = 0; chunk < nunOfChunk; chunk++) {
                 for (int j = 0; j < chunkSize; j++) {
                     T[j] = timeStart + j * timeStep;
@@ -40,6 +39,7 @@ public class DataGenerator {
                 GenerationWriter.write(chunkSize*nunOfChunk, T, X, sampleDir + filenames[deg] + ext, chunk == 0);
                 timeStart += timeStep * chunkSize;
             }
+            timeStart = 0.0;
         }
     }
 

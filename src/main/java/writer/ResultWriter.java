@@ -1,4 +1,4 @@
-package writer;
+package main.java.writer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -17,6 +17,10 @@ public class ResultWriter {
     }
 
     public static String prepareResult(double[] betas, double sigma, double pValue) {
-        return "\tbetas: " + Arrays.toString(betas) + ", sigma: " + sigma + ", pValue: " + pValue;
+        StringBuilder result = new StringBuilder("\tbetas: [ ");
+        for (double beta : betas) {
+            result.append(String.format("%.4f ", beta));
+        }
+        return result + "], sigma: " + String.format("%.4f ", sigma) + ", pValue: " + String.format("%.4f ", pValue);
     }
 }
