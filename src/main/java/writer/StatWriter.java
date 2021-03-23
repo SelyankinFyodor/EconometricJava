@@ -12,7 +12,7 @@ public class StatWriter {
             writer.write("num of data: " + numOfData + System.lineSeparator());
             for (int i = 0; i < stats.length; i++) {
                 writer.write(polyNames[i] + ":" + System.lineSeparator() +
-                        "\tratio:" + (double) stats[i] / (double) numOfData + System.lineSeparator() +
+                        "\tratio: " + (double) stats[i] / (double) numOfData + System.lineSeparator() +
                         "\tnum of approved: " + stats[i] + System.lineSeparator());
             }
             writer.write(System.lineSeparator());

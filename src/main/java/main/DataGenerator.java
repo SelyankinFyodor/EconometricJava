@@ -5,7 +5,7 @@ import main.java.writer.GenerationWriter;
 
 public class DataGenerator {
     public static void main(String[] args) {
-        final double[] coefs = {1, 2, 3, 4};
+        final double[] coefs = {10, 20, 30, 40};
         final double notLeadMul = 0.01;
         final double maxPolyDeg = 3;
 
