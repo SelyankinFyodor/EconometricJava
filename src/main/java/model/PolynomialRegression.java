@@ -39,7 +39,7 @@ public class PolynomialRegression {
             double d = X[i] - getValue(T[i]);
             mse += d * (X[i] - getValue(T[i]));
         }
-        this.sigma = Math.sqrt(mse / (n - 1));
+        this.sigma = Math.sqrt(mse / (n - degree));
     }
 
     private RealMatrix buildZ(double[] T, int n, int k) {

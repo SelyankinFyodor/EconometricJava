@@ -14,7 +14,7 @@ public class DataGenerator {
         final String ext = ".txt";
 
         double timeStart = 0;
-        final double timeStep = 0.001;
+        final double timeStep = 0.1;
 
         final long chunkSize = 50;
         final long nunOfChunk = 200000;

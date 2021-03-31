@@ -1,6 +1,7 @@
 package main.java.research;
 
 import main.java.model.PolynomialRegression;
+import main.java.writer.SigmaWriter;
 import main.java.writer.StatWriter;
 import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
 import main.java.writer.ResultWriter;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class Research {
-    public static void run(String inFileName, String outFileName, String statisticFileName) {
+    public static void run(String inFileName, String outFileName, String statisticFileName, String sigmaFileName) {
         final int maxDegree = 3;
         int[] statistic = new int[maxDegree + 1];
         double a = 0.05;
@@ -32,6 +33,7 @@ public class Research {
                 }
                 ResultWriter.write("interval: " + T[0] + " ," + T[chunkSize - 1], outFileName, chunk != 0);
                 PolynomialRegression polyRegr = new PolynomialRegression();
+                double[] Sigmas = new double[maxDegree + 1];
                 for (int i = 0; i <= maxDegree; i++) {
                     polyRegr.fit(T, X, i);
 
@@ -48,7 +50,9 @@ public class Research {
                     }
                     String resultLine = ResultWriter.prepareResult(polyRegr.getBetas(), polyRegr.getSigma(), pValue);
                     ResultWriter.write(resultLine, outFileName, true);
+                    Sigmas[i] = polyRegr.getSigma();
                 }
+                SigmaWriter.write(chunk, Sigmas, sigmaFileName);
             }
             StatWriter.write(N, statistic, statisticFileName, false);
         } catch (IOException e) {

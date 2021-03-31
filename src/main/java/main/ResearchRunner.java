@@ -7,6 +7,7 @@ public class ResearchRunner {
         final String inDir = "./dataFiles/Samples/";
         final String outDir = "./dataFiles/Result/";
         final String statDir = "./dataFiles/Stat/";
+        final String sigmaDir = "./dataFiles/Sigma/";
         final String[] filenames = {"Zero", "First", "Second", "Third"};
         final String ext = ".txt";
         final int maxPolynomialDegree = 3;
@@ -14,7 +15,8 @@ public class ResearchRunner {
         for (int i = 0; i <= maxPolynomialDegree; i++) {
             Research.run(inDir + filenames[i] + ext,
                     outDir + filenames[i] + ext,
-                    statDir + filenames[i] + ext);
+                    statDir + filenames[i] + ext,
+                    sigmaDir + filenames[i] + ext);
         }
     }
 }
