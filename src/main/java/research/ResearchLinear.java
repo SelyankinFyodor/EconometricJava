@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class Research {
+public class ResearchLinear {
     public static void run(String inFileName, String outFileName, String statisticFileName, String sigmaFileName) {
         final int maxDegree = 3;
         int[] statistic = new int[maxDegree + 1];

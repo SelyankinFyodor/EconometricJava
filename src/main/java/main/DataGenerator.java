@@ -3,13 +3,17 @@ package main.java.main;
 import main.java.generator.*;
 import main.java.writer.GenerationWriter;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class DataGenerator {
     public static void main(String[] args) {
         final double[] coefs = {10, 20, 30, 40};
         final double notLeadMul = 0.01;
         final double maxPolyDeg = 3;
 
-        final String sampleDir = "./dataFiles/Samples/";
+        final String sampleDir = "./lab1/dataFiles/Samples/";
         final String[] filenames = {"Zero", "First", "Second", "Third"};
         final String ext = ".txt";
 
@@ -21,6 +25,13 @@ public class DataGenerator {
 
         double[] T = new double[(int) chunkSize];
         double[] X = new double[(int) chunkSize];
+        if (!Files.exists(Paths.get(sampleDir))) {
+            try {
+                Files.createDirectories(Paths.get(sampleDir));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         NormalWithEjection normalWithEjection = new NormalWithEjection(0, 1, 3, 25);
         for (int deg = 0; deg <= maxPolyDeg; deg++) {

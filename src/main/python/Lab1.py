@@ -9,7 +9,7 @@ S3 = []
 inds = []
 
 filenames = ["Zero", "First", "Second", "Third"]
-sigmaDir = "../../../dataFiles/Sigma/"
+sigmaDir = "../../../dataFiles/lab1/Sigma/"
 ext = ".txt"
 
 f = open(sigmaDir + filenames[3] + ext)

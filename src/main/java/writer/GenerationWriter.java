@@ -3,11 +3,20 @@ package main.java.writer;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class GenerationWriter {
 
     public static int write(long size, double[] T, double[] X, String filename, boolean begin) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, !begin))) {
+
+        if (!Files.exists(Paths.get(filename))) {
+            try {
+                Files.createDirectories(Paths.get(filename));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, !begin))) {
             if (T.length != X.length) {
                 return 1;
             }

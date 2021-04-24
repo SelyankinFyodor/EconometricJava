@@ -11,6 +11,6 @@ public class XGenerator {
     }
 
     public double getX(double t) {
-        return g.applyAsDouble(t) +e.applyAsDouble(t);
+            return g.applyAsDouble(t) +e.applyAsDouble(t);
     }
 }

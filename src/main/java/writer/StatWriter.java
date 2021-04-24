@@ -3,10 +3,19 @@ package main.java.writer;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class StatWriter {
     public static int write(int numOfData, int[] stats, String filename, boolean append) {
         final String[] polyNames = {"Zero", "First", "Second", "Third"};
+        if (!Files.exists(Paths.get(filename))) {
+            try {
+                Files.createDirectories(Paths.get(filename));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
             writer.write("num of data: " + numOfData + System.lineSeparator());
