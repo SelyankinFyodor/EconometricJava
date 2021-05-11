@@ -56,7 +56,7 @@ public class PolynomialRegression {
         RealVector vectorX = MatrixUtils.createRealVector(X);
         Z = this.buildZ(T,degree + 1);
         A = Z.multiply(Z.transpose());
-        b = Z.transpose().preMultiply(vectorX);
+        b = Z.operate(vectorX);
 
         if (regularization != 0) {
             RealMatrix alphaE = MatrixUtils.createRealIdentityMatrix(degree + 1).scalarMultiply(regularization);

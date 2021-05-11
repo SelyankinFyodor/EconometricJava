@@ -19,10 +19,10 @@ public class ExpDataGenerator {
         final String ext = ".txt";
 
         double timeStart = 0;
-        final double timeStep = 0.01;
+        final double timeStep = 0.1;
 
-        final long chunkSize = 50;
-        final long nunOfChunk = 4;
+        final long chunkSize = 600;
+        final long nunOfChunk = 1;
 
         double[] T = new double[(int) chunkSize];
         double[] X = new double[(int) chunkSize];

@@ -22,38 +22,36 @@ public class ResearchLinear {
             int N = Integer.decode(bufferedReader.readLine());
             int chunkSize = 50;
 
-            for (int chunk = 0, chunks = N / chunkSize; chunk < chunks; chunk++) {
-                double[] T = new double[chunkSize];
-                double[] X = new double[chunkSize];
+            double[] T = new double[N];
+            double[] X = new double[N];
+
+            for (int j = 0; j < N; j++) {
+                String[] dots = bufferedReader.readLine().split(SPACE);
+                T[j] = Double.parseDouble(dots[0]);
+                X[j] = Double.parseDouble(dots[1]);
+            }
+            ResultWriter.write("interval: " + T[0] + " ," + T[chunkSize - 1], outFileName, false);
+            PolynomialRegression polyRegr = new PolynomialRegression();
+            double[] Sigmas = new double[maxDegree + 1];
+            for (int i = 0; i <= maxDegree; i++) {
+                polyRegr.fit(T, X, i);
+
+                double[] diff = new double[chunkSize];
 
                 for (int j = 0; j < chunkSize; j++) {
-                    String[] dots = bufferedReader.readLine().split(SPACE);
-                    T[j] = Double.parseDouble(dots[0]);
-                    X[j] = Double.parseDouble(dots[1]);
+                    diff[j] = X[j] - polyRegr.getValue(T[j]);
                 }
-                ResultWriter.write("interval: " + T[0] + " ," + T[chunkSize - 1], outFileName, chunk != 0);
-                PolynomialRegression polyRegr = new PolynomialRegression();
-                double[] Sigmas = new double[maxDegree + 1];
-                for (int i = 0; i <= maxDegree; i++) {
-                    polyRegr.fit(T, X, i);
-
-                    double[] diff = new double[chunkSize];
-
-                    for (int j = 0; j < chunkSize; j++) {
-                        diff[j] = X[j] - polyRegr.getValue(T[j]);
-                    }
-                    double[] firstPart = Arrays.copyOfRange(diff, 0, chunkSize / 2);
-                    double[] secondPart = Arrays.copyOfRange(diff, chunkSize / 2, chunkSize);
-                    double pValue = new MannWhitneyUTest().mannWhitneyUTest(firstPart, secondPart);
-                    if (pValue > a) {
-                        statistic[i] += 1;
-                    }
-                    String resultLine = ResultWriter.prepareResult(polyRegr.getBetas(), polyRegr.getSigma(), pValue);
-                    ResultWriter.write(resultLine, outFileName, true);
-                    Sigmas[i] = polyRegr.getSigma();
+                double[] firstPart = Arrays.copyOfRange(diff, 0, chunkSize / 2);
+                double[] secondPart = Arrays.copyOfRange(diff, chunkSize / 2, chunkSize);
+                double pValue = new MannWhitneyUTest().mannWhitneyUTest(firstPart, secondPart);
+                if (pValue > a) {
+                    statistic[i] += 1;
                 }
-                SigmaWriter.write(chunk, Sigmas, sigmaFileName);
+                String resultLine = ResultWriter.prepareResult(polyRegr.getBetas(), polyRegr.getSigma(), pValue);
+                ResultWriter.write(resultLine, outFileName, true);
+                Sigmas[i] = polyRegr.getSigma();
             }
+            SigmaWriter.write(0, Sigmas, sigmaFileName);
             StatWriter.write(N, statistic, statisticFileName, false);
         } catch (IOException e) {
             e.printStackTrace();
