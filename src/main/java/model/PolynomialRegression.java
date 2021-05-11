@@ -73,8 +73,8 @@ public class PolynomialRegression {
         this.sigma = Math.sqrt(mse / (n - degree - 1));
 
         TDistribution tDistribution = new TDistribution(n - (degree + 1));
-        double L = tDistribution.inverseCumulativeProbability((1 - confidence) / 2);
-        double U = tDistribution.inverseCumulativeProbability((1 + confidence) / 2);
+        double L = tDistribution.inverseCumulativeProbability(1 - confidence / 2);
+        double U = tDistribution.inverseCumulativeProbability(confidence/ 2);
         double[][] AInv = MatrixUtils.inverse(A).getData();
 
         confidenceIntervals = new double[degree + 1][2];

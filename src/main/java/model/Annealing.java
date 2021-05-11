@@ -88,10 +88,10 @@ abstract public class Annealing {
             if (alpha < h(Enew - E, T)) {
                 x = xNew;
                 E = Enew;
+                i++;
             }
 
             T = calcT(startT, i);
-            i++;
 
             if (i % iterationStep == 0) {
                 double sigma = 0;

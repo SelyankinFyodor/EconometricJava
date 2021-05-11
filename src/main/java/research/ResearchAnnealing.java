@@ -1,6 +1,5 @@
 package main.java.research;
 
-import main.java.main.ExpDataGenerator;
 import main.java.model.Annealing;
 import main.java.model.Boltzmann;
 import main.java.model.Cauchy;
@@ -31,8 +30,8 @@ public class ResearchAnnealing {
 
 
             for (Annealing annealing : new Annealing[]{
-//                    new Cauchy(T, X, new double[][]{{-50, 50}, {-10, 10}}),
-                    new Boltzmann(T, X, new double[][]{{-50, 50}, {-10, 10}})
+                    new Cauchy(T, X, new double[][]{{-15, 15}, {-15, 15}}),
+                    new Boltzmann(T, X, new double[][]{{-15, 15}, {-15, 15}})
             }) {
 
                 double[] betas = annealing.fit(new double[]{0, 0}, stepIter, 5, 0.0001, maxResearchIteration);

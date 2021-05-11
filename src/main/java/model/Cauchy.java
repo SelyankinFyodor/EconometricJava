@@ -2,8 +2,6 @@ package main.java.model;
 
 import org.apache.commons.math3.distribution.CauchyDistribution;
 
-import java.util.function.DoubleBinaryOperator;
-
 public class Cauchy extends Annealing {
     public Cauchy(double[] T, double[] X, double[][] compactBorders) {
         super(T, X, compactBorders);
@@ -11,7 +9,7 @@ public class Cauchy extends Annealing {
 
     @Override
     double calcT(double startT, int i) {
-        return startT / i;
+        return startT / Math.sqrt(i);
     }
 
     @Override
