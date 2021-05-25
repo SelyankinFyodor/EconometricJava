@@ -9,14 +9,7 @@ import java.nio.file.Paths;
 public class GenerationWriter {
 
     public static int write(long size, double[] T, double[] X, String filename, boolean begin) {
-
-        if (!Files.exists(Paths.get(filename))) {
-            try {
-                Files.createDirectories(Paths.get(filename));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, !begin))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, !begin))) {
             if (T.length != X.length) {
                 return 1;
             }

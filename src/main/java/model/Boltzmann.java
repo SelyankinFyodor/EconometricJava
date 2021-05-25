@@ -2,8 +2,6 @@ package main.java.model;
 
 import org.apache.commons.math3.distribution.MultivariateNormalDistribution;
 
-import java.util.function.DoubleBinaryOperator;
-
 public class Boltzmann extends Annealing {
 
     public Boltzmann (double[] T, double[] X, double[][] compactBorders) {

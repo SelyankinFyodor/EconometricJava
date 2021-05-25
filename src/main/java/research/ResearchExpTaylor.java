@@ -1,6 +1,5 @@
 package main.java.research;
 
-import main.java.main.ExpDataGenerator;
 import main.java.model.PolynomialRegression;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.util.CombinatoricsUtils;

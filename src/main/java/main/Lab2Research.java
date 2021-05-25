@@ -10,9 +10,9 @@ public class Lab2Research {
         String ext = ".txt";
         String ISTFileName = "IterSigmaTempFileName";
 
-//        ResearchExpTaylor.researchOnRegularizationParam(inDir + filenames[0] + ext);
+        ResearchExpTaylor.researchOnRegularizationParam(inDir + filenames[0] + ext);
         double bestRegularizationParam = 0.3;
-//        ResearchExpTaylor.researchBetas(inDir + filenames[0] + ext, bestRegularizationParam);
+        ResearchExpTaylor.researchBetas(inDir + filenames[0] + ext, bestRegularizationParam);
         ResearchAnnealing.run(inDir + filenames[0] + ext, inDir + ISTFileName + ext);
     }
 }
