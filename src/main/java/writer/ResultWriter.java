@@ -9,13 +9,6 @@ import java.util.Arrays;
 
 public class ResultWriter {
     public static int write(String line, String filename, boolean append) {
-        if (!Files.exists(Paths.get(filename))) {
-            try {
-                Files.createDirectories(Paths.get(filename));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
             writer.write(line + System.lineSeparator());
             writer.flush();

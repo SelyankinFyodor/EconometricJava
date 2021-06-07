@@ -6,6 +6,7 @@ import org.apache.commons.math3.linear.*;
 public class PolynomialRegression {
     private double[] betas;
     private double sigma;
+    private double mse;
     private double[][] confidenceIntervals;
     private RealMatrix A;
     private RealMatrix Z;
@@ -65,7 +66,7 @@ public class PolynomialRegression {
 
         betas = new SingularValueDecomposition(A).getSolver().solve(b).toArray();
 
-        double mse = 0;
+        mse = 0;
         for (int i = 0; i < n; i++) {
             double d = X[i] - getValue(T[i]);
             mse += d * d;
@@ -108,5 +109,9 @@ public class PolynomialRegression {
         }
 
         return value;
+    }
+
+    public double getMse() {
+        return mse;
     }
 }

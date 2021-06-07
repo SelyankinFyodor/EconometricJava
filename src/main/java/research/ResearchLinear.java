@@ -30,7 +30,7 @@ public class ResearchLinear {
                 T[j] = Double.parseDouble(dots[0]);
                 X[j] = Double.parseDouble(dots[1]);
             }
-            ResultWriter.write("interval: " + T[0] + " ," + T[chunkSize - 1], outFileName, false);
+            ResultWriter.write("interval: " + T[0] + " ," + T[chunkSize - 1], outFileName, true);
             PolynomialRegression polyRegr = new PolynomialRegression();
             double[] Sigmas = new double[maxDegree + 1];
             for (int i = 0; i <= maxDegree; i++) {
